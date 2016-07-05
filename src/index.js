@@ -1,5 +1,6 @@
 'use strict'
 const Ev = require('geval/event')
+const wesoStream = require('./src/stream')
 
 const defaultFormatContent = content => JSON.stringify(content)
 
@@ -19,12 +20,14 @@ const checkRoute = (weso, route) => {
 
 module.exports = opts => {
   const broadcasters = {}
+  const streams = {}
   const weso = Ev()
 
   const formatContent = opts.formatContent || defaultFormatContent
   const parser = opts.parser || defaultParser
   const sub = opts.sub || opts.subscribe || []
   const pub = opts.pub || opts.publish || []
+  const stream = opts.str || opts.stream || []
 
   for (let route of sub) {
     checkRoute(weso, route)
@@ -37,6 +40,15 @@ module.exports = opts => {
     checkRoute(weso, route)
     let prefixedRoute = route +':'
     weso[route] = d => weso.broadcast(prefixedRoute + formatContent(d))
+  }
+
+  for(let route of stream) {
+    checkRoute(weso, route)
+    let prefixedRoute = route +':'
+    let ev = Ev()
+    weso[route] = d => wesoStream(weso, prefixedRoute, formatContent, d)
+    broadcasters[route] = ev.broadcast
+    streams[route] = ev.listen
   }
 
   weso.onmessage = (data, ws) => {

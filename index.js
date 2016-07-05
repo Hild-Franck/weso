@@ -1,6 +1,7 @@
 'use strict';
 
 var Ev = require('geval/event');
+var wesoStream = require('./src/stream');
 
 var defaultFormatContent = function defaultFormatContent(content) {
   return JSON.stringify(content);
@@ -22,12 +23,14 @@ var checkRoute = function checkRoute(weso, route) {
 
 module.exports = function (opts) {
   var broadcasters = {};
+  var streams = {};
   var weso = Ev();
 
   var formatContent = opts.formatContent || defaultFormatContent;
   var parser = opts.parser || defaultParser;
   var sub = opts.sub || opts.subscribe || [];
   var pub = opts.pub || opts.publish || [];
+  var stream = opts.str || opts.stream || [];
 
   var _iteratorNormalCompletion = true;
   var _didIteratorError = false;
@@ -86,6 +89,42 @@ module.exports = function (opts) {
     } finally {
       if (_didIteratorError2) {
         throw _iteratorError2;
+      }
+    }
+  }
+
+  var _iteratorNormalCompletion3 = true;
+  var _didIteratorError3 = false;
+  var _iteratorError3 = undefined;
+
+  try {
+    var _loop2 = function _loop2() {
+      var route = _step3.value;
+
+      checkRoute(weso, route);
+      var prefixedRoute = route + ':';
+      var ev = Ev();
+      weso[route] = function (d) {
+        return wesoStream(weso, prefixedRoute, formatContent, d);
+      };
+      broadcasters[route] = ev.broadcast;
+      streams[route] = ev.listen;
+    };
+
+    for (var _iterator3 = stream[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+      _loop2();
+    }
+  } catch (err) {
+    _didIteratorError3 = true;
+    _iteratorError3 = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion3 && _iterator3.return) {
+        _iterator3.return();
+      }
+    } finally {
+      if (_didIteratorError3) {
+        throw _iteratorError3;
       }
     }
   }
