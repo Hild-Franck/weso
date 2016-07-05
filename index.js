@@ -23,6 +23,7 @@ var checkRoute = function checkRoute(weso, route) {
 
 module.exports = function (opts) {
   var broadcasters = {};
+  var streams = {};
   var weso = Ev();
 
   var formatContent = opts.formatContent || defaultFormatContent;
@@ -102,9 +103,12 @@ module.exports = function (opts) {
 
       checkRoute(weso, route);
       var prefixedRoute = route + ':';
+      var ev = Ev();
       weso[route] = function (d) {
         return wesoStream(weso, prefixedRoute, formatContent, d);
       };
+      broadcasters[route] = ev.broadcast;
+      streams[route] = ev.listen;
     };
 
     for (var _iterator3 = stream[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
