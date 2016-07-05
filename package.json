@@ -1,0 +1,19 @@
+{
+  "name": "weso",
+  "version": "1.0.3",
+  "description": "Universal websocket handler for both client and servers in JS",
+  "main": "index.js",
+  "scripts": {
+    "babel build": "babel src/index.js -w --out-file index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "email": "clement@payname.fr",
+    "name": "Clément Denis"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.10.1",
+    "babel-preset-es2015": "^6.9.0"
+  }
+}
