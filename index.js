@@ -24,8 +24,7 @@ var checkRoute = function checkRoute(weso, route) {
 module.exports = function (opts) {
   var broadcasters = {};
   var weso = Ev();
-  var pos = content.indexOf(':');
-
+  weso.streams = {};
   var formatContent = opts.formatContent || defaultFormatContent;
   var parser = opts.parser || defaultParser;
   var sub = opts.sub || opts.subscribe || [];

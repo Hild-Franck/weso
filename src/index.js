@@ -21,8 +21,7 @@ const checkRoute = (weso, route) => {
 module.exports = opts => {
   const broadcasters = {}
   const weso = Ev()
-  const pos = content.indexOf(':')
-
+  weso.streams = {}
   const formatContent = opts.formatContent || defaultFormatContent
   const parser = opts.parser || defaultParser
   const sub = opts.sub || opts.subscribe || []
