@@ -20,8 +20,8 @@ const checkRoute = (weso, route) => {
 
 module.exports = opts => {
   const broadcasters = {}
-  const streams = {}
   const weso = Ev()
+  const pos = content.indexOf(':')
 
   const formatContent = opts.formatContent || defaultFormatContent
   const parser = opts.parser || defaultParser
@@ -48,7 +48,7 @@ module.exports = opts => {
     let ev = Ev()
     weso[route] = d => wesoStream(weso, prefixedRoute, formatContent, d)
     broadcasters[route] = ev.broadcast
-    streams[route] = ev.listen
+    weso.streams[route] = ev.listen
   }
 
   weso.onmessage = (data, ws) => {
