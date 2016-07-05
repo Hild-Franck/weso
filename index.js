@@ -1,7 +1,7 @@
 'use strict';
 
 var Ev = require('geval/event');
-var wesoStream = require('./src/stream');
+var wesoStream = require('./stream');
 
 var defaultFormatContent = function defaultFormatContent(content) {
   return JSON.stringify(content);

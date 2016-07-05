@@ -1,6 +1,6 @@
 'use strict'
 const Ev = require('geval/event')
-const wesoStream = require('./src/stream')
+const wesoStream = require('./stream')
 
 const defaultFormatContent = content => JSON.stringify(content)
 
