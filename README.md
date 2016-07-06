@@ -1,5 +1,5 @@
 Not my work. Put here with the permission of the creator
-See [here][https://www.npmjs.com/package/weso] for the original work
+See [here](https://www.npmjs.com/package/weso) for the original work
 ## weso
 
 Universal websocket handler for both client and servers in JS
