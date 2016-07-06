@@ -10,6 +10,7 @@ const stream = (weso, route, format, data) => {
       next()
     }))
   }
+  else throw new Error('Need a stream')
 }
 
 module.exports = stream
